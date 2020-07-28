@@ -16,8 +16,8 @@ resource "aws_cloudwatch_event_target" "check-file-event-lambda-target" {
     arn = "${aws_lambda_function.check_file_lambda.arn}"
     input = <<EOF
 {
-  "bucket": "my_bucket",
-  "file_path": "the_path"
+  "bucket": "mybucket78374892",
+  "file_path": "code"
 }
 EOF
 }
@@ -78,7 +78,8 @@ resource "aws_lambda_function" "check_file_lambda" {
     handler = "check_file_lambda.handler"
     runtime = "python2.7"
     timeout = 10
-    source_code_hash = "${base64sha256(file("check_file_lambda.zip"))}"
+    #source_code_hash = "${base64sha256(file("check_file_lambda.zip"))}"
+    source_code_hash = filebase64sha256("check_file_lambda.zip")
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_file" {
